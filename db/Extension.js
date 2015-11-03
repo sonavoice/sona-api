@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var extensionSchema = mongoose.Schema({
-  developerId: String,
+  developerEmail: String,
   name: String,
   description: String,
   commands: Array,
