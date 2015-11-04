@@ -22,7 +22,7 @@ router.post('/', function(req, res) {
           res.status(200).send(guid);
         });
       } else {
-        res.status(401).send("Invalid login")
+        res.status(401).send('Invalid login');
       }
     } else {
       var guid = uuid.v4();

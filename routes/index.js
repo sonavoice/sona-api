@@ -13,15 +13,23 @@ router.post('/command', function(req, res) {
   } else {
     var transcript = req.body.transcript;
     var auth = req.body.auth;
+    var confirmed = req.body.confirmed;
 
-    utils.runCommand(transcript, auth, function(err, feedback) {
+    utils.runCommand(transcript, auth, confirmed, function(err, feedback, confirmation) {
       if (err) {
         console.log(err);
-        res.send({feedback: feedback});
+        res.send({
+          feedback: feedback,
+          confirmation: false
+        });
+        return;
       }
-      else {
-        res.send({feedback: feedback});
-      }
+
+      confirmation = (confirmation === undefined) ? false : confirmation;
+      res.send({
+        feedback: feedback,
+        confirmation: confirmation,
+      });
 
     });
   }

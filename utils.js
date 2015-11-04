@@ -25,7 +25,7 @@ function addExtension(bufferedZip, appName, resCB) {
   });
 }
 
-function runCommand(transcript, auth, cb) {
+function runCommand(transcript, auth, confirmed, cb) {
   var match = transcript.match(/(?:\w+)\s(\w+)\s(\w+)(?:\s(.*))?/i);
 
   var extName = match[1];
@@ -35,6 +35,7 @@ function runCommand(transcript, auth, cb) {
 
   var ext;
   var filename = './lib/' + extName + '/extension.js';
+  console.log('filename =', filename);
   try {
     ext = require(filename);
   } catch(e) {
@@ -60,7 +61,7 @@ function runCommand(transcript, auth, cb) {
       return;
     }
     var args = extractArgs(key, match.length, phrase);
-    ext.commands[key](cb, auth, args);
+    ext.commands[key](cb, auth, args, confirmed);
   }
 }
 
