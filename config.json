@@ -1,4 +1,10 @@
 {
-  "clientId": "",
-  "clientSecret": ""
+  "slack": {
+    "clientId": "",
+    "clientSecret": ""
+  },
+  "twitter": {
+    "consumerKey": "",
+    "consumerSecret": ""
+  }
 }
