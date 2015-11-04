@@ -10,7 +10,8 @@ var Extension = require('../db/Extension');
 var Developer = require('../db/Developer');
 
 router.get('/', function(req, res) {
-  Extension.find({}, function(err, extensions) {
+  var name = req.query.name || '';
+  Extension.find({name: {"$regex": name, "$options": "i"}}, function(err, extensions) {
     if (err) {
       console.log('Error in retrieving all extensions: ', err);
     } else {
@@ -18,7 +19,6 @@ router.get('/', function(req, res) {
     }
   });
 });
-
 router.post('/', upload.fields([{ name: 'guid', maxCount: 1 }, { name: 'extension', maxCount: 1 }]), function(req, res) {
   /* Ideally need extensions name, developer id, and zipped extension in request */
   //req.accepts('application/zip');
