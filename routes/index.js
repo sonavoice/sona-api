@@ -15,20 +15,20 @@ router.post('/command', function(req, res) {
     var auth = req.body.auth;
     var confirmed = req.body.confirmed;
 
-    utils.runCommand(transcript, auth, confirmed, function(err, feedback, confirmation) {
+    utils.runCommand(transcript, auth, confirmed, function(err, feedback, requiresConfirmation) {
       if (err) {
         console.log(err);
         res.send({
           feedback: feedback,
-          confirmation: false
+          requiresConfirmation: false
         });
         return;
       }
 
-      confirmation = (confirmation === undefined) ? false : confirmation;
+      requiresConfirmation = (requiresConfirmation === undefined) ? false : requiresConfirmation;
       res.send({
         feedback: feedback,
-        confirmation: confirmation,
+        requiresConfirmation: requiresConfirmation,
       });
 
     });
