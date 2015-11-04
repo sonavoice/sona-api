@@ -34,7 +34,7 @@ function runCommand(transcript, auth, cb) {
   console.log('phrase =', phrase);
 
   var ext;
-  var filename = './lib/' + extName + '/ext.js';
+  var filename = './lib/' + extName + '/extension.js';
   try {
     ext = require(filename);
   } catch(e) {
