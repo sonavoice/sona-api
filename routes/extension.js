@@ -23,6 +23,7 @@ router.post('/', upload.fields([{ name: 'guid', maxCount: 1 }, { name: 'extensio
   var guid = req.body.guid;
   var email = req.body.email;
   var name = req.body.name;
+  var description = req.body.description || "";
 
   var zipBuffer = req.files.extension[0].buffer;
 
@@ -30,20 +31,44 @@ router.post('/', upload.fields([{ name: 'guid', maxCount: 1 }, { name: 'extensio
     if (dev === null) {
       res.status(401).send("Invalid auth token detected. Please login again.");
     } else {
-      utils.addExtension(zipBuffer, name, function() {
 
-        var sampleCommands = fs.readFileSync('lib/' + name + '/sampleCommands.txt', 'utf-8').split("\n");
-        sampleCommands = sampleCommands.filter(function(n) { return n !== ""});
+      Extension.findOne({name: name}, function(err, doc) {
+        // New item
+        if (doc === null) {
+          utils.addExtension(zipBuffer, name, function() {
+            var sampleCommands = fs.readFileSync('lib/' + name + '/sampleCommands.txt', 'utf-8').split("\n");
+            sampleCommands = sampleCommands.filter(function(n) { return n !== ""});
 
-        var extensions = new Extension({ developerEmail: dev.email, name: name, description: "", commands: sampleCommands, iconURL: "https://sonavoice.com/extensionIcon/" + name })
-        extensions.save(function(err) {
-          if (err) {
-            console.log('Didn\'t save Extension to Extension collection');
-            res.status(500).send('Internal server error while saving extension');
-          };
-          res.status(200).send('Extension saved!');
-        });
-      });
+            var extensions = new Extension({ developerEmail: dev.email, name: name, description: description, commands: sampleCommands, iconURL: "https://sonavoice.com/extensionIcon/" + name })
+            extensions.save(function(err) {
+              if (err) {
+                res.status(500).send('Internal server error while saving extension');
+              } else {
+                res.status(200).send('saved');
+              }
+            });
+          });
+
+        // Update
+        } else {
+          if (doc.developerEmail === email) {
+            utils.addExtension(zipBuffer, name, function() {
+              var sampleCommands = fs.readFileSync('lib/' + name + '/sampleCommands.txt', 'utf-8').split("\n");
+              sampleCommands = sampleCommands.filter(function(n) { return n !== ""});
+
+              Extension.findOneAndUpdate({name: name}, {$set: {description: description, commands: sampleCommands}}, function(err) {
+                if (err) {
+                  res.status(500).send('Internal server error while saving extension');
+                } else {
+                  res.status(200).send('updated');
+                }
+              });
+            });
+          } else {
+            res.status(401).send('You are not authorized to update this extension!');
+          }
+        }
+      })
     }
   });
 });
