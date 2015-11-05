@@ -23,6 +23,7 @@
     "node-uuid": "^1.4.3",
     "passport": "^0.3.0",
     "passport-slack": "0.0.4",
+    "passport-venmo": "0.0.1",
     "recursive-readdir": "^1.2.1",
     "request": "^2.65.0",
     "serve-favicon": "~2.3.0",

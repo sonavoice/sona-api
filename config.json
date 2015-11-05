@@ -6,5 +6,9 @@
   "twitter": {
     "consumerKey": "",
     "consumerSecret": ""
+  },
+  "venmo":{
+    "clientID": "",
+    "clientSecret": ""
   }
 }
