@@ -14,6 +14,7 @@ var oauth = require('./routes/oauth');
 var developer = require('./routes/developer');
 var extension = require('./routes/extension');
 var authenticate = require('./routes/authenticate');
+var extensionIcon = require('./routes/extensionIcon');
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use('/oauth', oauth);
 app.use('/developer', developer);
 app.use('/extension', extension);
 app.use('/authenticate', authenticate);
+app.use('/extensionIcon', extensionIcon);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
