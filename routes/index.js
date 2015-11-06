@@ -29,6 +29,7 @@ router.post('/command', function(req, res) {
       res.send({
         feedback: feedback,
         requiresConfirmation: requiresConfirmation,
+        previousTranscript: transcript,
       });
 
     });
