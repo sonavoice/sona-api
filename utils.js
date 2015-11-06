@@ -31,11 +31,9 @@ function runCommand(transcript, auth, confirmed, cb) {
   var extName = match[1];
   var cmd = match[2].toLowerCase();
   var phrase = cmd + ' ' + match[3];
-  console.log('phrase =', phrase);
 
   var ext;
   var filename = './lib/' + extName + '/extension.js';
-  console.log('filename =', filename);
   try {
     ext = require(filename);
   } catch(e) {
@@ -44,24 +42,32 @@ function runCommand(transcript, auth, confirmed, cb) {
     return;
   }
 
+
   for (var key in ext.commands) {
     if (key.indexOf(cmd) === -1)
       continue;
-    executeCommand(key);
-    return;
+    if (executeCommand(key))
+      return;
   }
 
   cb(true, 'Sorry, I couldn\'t find ' + cmd);
 
   function executeCommand(key) {
     var match = key.match(/\$/g);
+    console.log('match =', match);
     if (match === null) {
       ext.commands[key]();
       cb(null, 'ran command');
       return;
     }
-    var args = extractArgs(key, match.length, phrase);
+    var args;
+    try {
+      args = extractArgs(key, match.length, phrase);
+    } catch(e) {
+      return false;
+    }
     ext.commands[key](cb, auth, args, confirmed);
+    return true;
   }
 }
 
@@ -71,11 +77,11 @@ function extractArgs(key, numArgs, phrase) {
   for (var i = 1; i <= numArgs; i++) {
     regexStr = regexStr.replace('$' + i, '(.*)');
   }
-
   var regex = new RegExp(regexStr);
-
   match = phrase.match(regex);
   var args = match.slice(1);
+
+  console.log('args =', args);
 
   return args;
 }
