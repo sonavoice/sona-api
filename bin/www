@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var https = true;
+var https = false;
 /**
  * Module dependencies.
  */

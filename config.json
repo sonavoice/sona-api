@@ -1,14 +1,14 @@
 {
-  "slack": {
-    "clientId": "",
-    "clientSecret": ""
-  },
-  "twitter": {
-    "consumerKey": "",
-    "consumerSecret": ""
-  },
-  "venmo":{
-    "clientID": "",
-    "clientSecret": ""
-  }
+ "slack": {
+   "clientId": "12621704533.13244851507",
+   "clientSecret": "dde0d2b0f12c3f8967d96873fca74bc3"
+ },
+ "twitter": {
+   "consumerKey": "7J9zIcGtoL8hlT2fD83M6tUEZ",
+   "consumerSecret": "6lafnrcg6ZQZ1jSXRNZv0WopUfknMkJJMVYU6E0rkzn3XSsSlA"
+ },
+ "venmo": {
+   "clientID": "3076",
+   "clientSecret": "gtVtdADaAFPqX6Lhre8MLMnBZFWPU4A2"
+ }
 }
