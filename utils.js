@@ -54,10 +54,8 @@ function runCommand(transcript, auth, confirmed, cb) {
 
   function executeCommand(key) {
     var match = key.match(/\$/g);
-    console.log('match =', match);
     if (match === null) {
       ext.commands[key]();
-      cb(null, 'ran command');
       return;
     }
     var args;
