@@ -13,5 +13,6 @@ router.get('/:extension', function(req, res, next) {
 
 /* Need to use .use because exporting router in lib */
 router.use('/', require('../lib/slack/auth.js'));
+router.use('/', require('../lib/venmo/auth.js'));
 
 module.exports = router;
