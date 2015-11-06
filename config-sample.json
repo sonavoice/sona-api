@@ -1,0 +1,14 @@
+{
+ "slack": {
+   "clientId": "",
+   "clientSecret": ""
+ },
+ "twitter": {
+   "consumerKey": "",
+   "consumerSecret": ""
+ },
+ "venmo": {
+   "clientID": "",
+   "clientSecret": ""
+ }
+}
